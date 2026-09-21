@@ -3,69 +3,179 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>ASTRA X'26 | Aditya Degree College</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
+
 <div class="site-bg">
+
     <header class="site-header">
+
         <a class="brand" href="{{ url_for('index') }}">
-           <img src="{{ url_for('static', filename='images/college_logo.png') }}"
-     alt="Aditya Degree College Logo"
-     class="college-logo">
+
+            <img
+                src="{{ url_for('static', filename='images/college_logo.png') }}"
+                alt="Aditya Degree College Logo"
+                class="college-logo"
+            >
+
             <div>
-                <div class="college-name">Aditya Degree College</div>
-                <div class="college-subtitle">AI & Robotics</div>
-            </div>
-        </a>
-        <a class="admin-link" href="{{ url_for('admin_login') }}">Admin Login</a>
-    </header>
+                <div class="college-name">
+                    Aditya Degree College
+                </div>
 
-    <main>
-        <section class="hero section-shell">
-            <p class="eyebrow">AI & ROBOTICS EVENT</p>
-            <h1>ASTRA X'26</h1>
-            <p class="hero-copy">Innovation • Artificial Intelligence • Robotics • Technology</p>
-            <a class="gold-button" href="{{ url_for('register') }}">REGISTER NOW</a>
-        </section>
-
-        <section class="arena section-shell" id="competitions">
-            <div class="section-heading">
-                <span>01</span>
-                <div>
-                    <p class="eyebrow">CHOOSE YOUR ARENA</p>
-                    <h2>Six competitions. One stage.</h2>
+                <div class="college-subtitle">
+                    AI & Robotics
                 </div>
             </div>
 
-            <div class="competition-list">
-                {% for name, description in competitions %}
-                <article class="competition-row">
-                    <div class="competition-name">
-                        <span class="number">{{ "%02d"|format(loop.index) }}</span>
-                        <span>{{ name }}</span>
-                    </div>
-                    <div class="competition-details">{{ description }}</div>
-                </article>
-                {% endfor %}
-            </div>
+        </a>
+
+        <a class="admin-link"
+           href="{{ url_for('admin_login') }}">
+            Admin Login
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+
+        <section class="hero section-shell">
+
+            <p class="eyebrow">
+                AI & ROBOTICS EVENT
+            </p>
+
+            <h1>
+                ASTRA X'26
+            </h1>
+
+            <p class="hero-copy">
+                Innovation • Artificial Intelligence • Robotics • Technology
+            </p>
+
+            <a class="gold-button"
+               href="{{ url_for('register') }}">
+                REGISTER NOW
+            </a>
+
         </section>
+
+
+        <!-- COMPETITIONS -->
+
+        <section
+            class="arena section-shell"
+            id="competitions">
+
+            <div class="section-heading">
+
+                <span>01</span>
+
+                <div>
+
+                    <p class="eyebrow">
+                        CHOOSE YOUR ARENA
+                    </p>
+
+                    <h2>
+                        Six competitions. One stage.
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="competition-list">
+
+                {% for name, description in competitions %}
+
+                <article class="competition-row">
+
+                    <div class="competition-name">
+
+                        <span class="number">
+                            {{ "%02d"|format(loop.index) }}
+                        </span>
+
+                        <span>
+                            {{ name }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="competition-details">
+                        {{ description }}
+                    </div>
+
+                </article>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- REGISTRATION CTA -->
 
         <section class="cta section-shell">
+
             <div>
-                <p class="eyebrow">READY TO COMPETE?</p>
-                <h2>Register for your arena.</h2>
-                <p>One student can register for one competition using one SUC Code.</p>
+
+                <p class="eyebrow">
+                    READY TO COMPETE?
+                </p>
+
+                <h2>
+                    Register for your arena.
+                </h2>
+
+                <p>
+                    One student can register for one competition
+                    using one SUC Code.
+                </p>
+
             </div>
-            <a class="gold-button" href="{{ url_for('register') }}">START REGISTRATION</a>
+
+
+            <a class="gold-button"
+               href="{{ url_for('register') }}">
+                START REGISTRATION
+            </a>
+
         </section>
+
     </main>
 
+
     <footer class="site-footer">
-        <span>ASTRA X'26</span>
-        <span>Aditya Degree College • AI & Robotics</span>
+
+        <span>
+            ASTRA X'26
+        </span>
+
+        <span>
+            Aditya Degree College • AI & Robotics
+        </span>
+
     </footer>
+
 </div>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
 </body>
 </html>
