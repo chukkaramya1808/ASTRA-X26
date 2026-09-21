@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Login | ASTRA X'26</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="site-bg login-bg">
+    <main class="login-page">
+        <div class="login-card glass-card">
+            <a class="back-link" href="{{ url_for('index') }}">← Back to website</a>
+            <div class="login-brand">
+                <div class="logo-placeholder">ADC</div>
+                <div>
+                    <strong>Aditya Degree College</strong>
+                    <span>ASTRA X'26 Admin</span>
+                </div>
+            </div>
+
+            <p class="eyebrow">SECURE ACCESS</p>
+            <h1>Admin Login</h1>
+            <p class="muted">Authorized accounts: ramya and varshu</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-stack">
+                    {% for category, message in messages %}
+                        <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="post" class="login-form">
+                <label>
+                    Username
+                    <input type="text" name="username" placeholder="Enter username" autocomplete="username" required>
+                </label>
+
+                <label>
+                    Password
+                    <input type="password" name="password" placeholder="Enter password" autocomplete="current-password" required>
+                </label>
+
+                <button class="gold-button" type="submit">LOGIN</button>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
