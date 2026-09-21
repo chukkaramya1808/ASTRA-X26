@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration | ASTRA X'26</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="site-bg">
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('index') }}">
+            <div class="logo-placeholder">ADC</div>
+            <div>
+                <div class="college-name">Aditya Degree College</div>
+                <div class="college-subtitle">AI & Robotics</div>
+            </div>
+        </a>
+        <a class="admin-link" href="{{ url_for('admin_login') }}">Admin Login</a>
+    </header>
+
+    <main class="form-page section-shell">
+        <div class="form-heading">
+            <p class="eyebrow">ASTRA X'26</p>
+            <h1>Student Registration</h1>
+            <p>Complete the form below. Each SUC Code can be used only once.</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% if success %}
+            <div class="success-card">
+                <div class="success-icon">✓</div>
+                <h2>Registration Successful!</h2>
+                <p><strong>{{ registered_name }}</strong>, your registration for
+                   <strong>{{ selected_competition }}</strong> has been recorded.</p>
+                <a class="gold-button" href="{{ url_for('index') }}">Back to Home</a>
+            </div>
+        {% else %}
+        <form class="registration-form glass-card" method="post" id="registrationForm" novalidate>
+            <div class="field-grid">
+                <label>
+                    Student Name
+                    <input type="text" name="student_name" placeholder="Enter your name"
+                           value="{{ form.get('student_name', '') if form else '' }}" required>
+                </label>
+
+                <label>
+                    Course
+                    <input type="text" name="course" placeholder="Enter your course"
+                           value="{{ form.get('course', '') if form else '' }}" required>
+                </label>
+
+                <label>
+                    Year
+                    <input type="text" name="year" placeholder="Enter your year"
+                           value="{{ form.get('year', '') if form else '' }}" required>
+                </label>
+
+                <label>
+                    SU/C Code
+                    <input type="text" name="suc_code" id="sucCode"
+                           placeholder="Enter your 10-digit SU/C code"
+                           inputmode="numeric" maxlength="10"
+                           value="{{ form.get('suc_code', '') if form else '' }}" required>
+                    <small id="sucHint">Exactly 10 digits</small>
+                </label>
+
+                <label class="full-width">
+                    Participating Competition
+                    <select name="competition" required>
+                        <option value="">Select your competition</option>
+                        {% for name, description in competitions %}
+                        <option value="{{ name }}"
+                            {% if selected_competition == name or (form and form.get('competition') == name) %}selected{% endif %}>
+                            {{ name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
+            <button class="gold-button submit-button" type="submit" id="submitButton">
+                SUBMIT REGISTRATION
+            </button>
+            <p class="form-note">Your registration details are visible only to authorized administrators.</p>
+        </form>
+        {% endif %}
+    </main>
+
+    <footer class="site-footer">
+        <span>ASTRA X'26</span>
+        <a href="{{ url_for('index') }}">Home</a>
+    </footer>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
