@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard | ASTRA X'26</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="site-bg">
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('admin_dashboard') }}">
+            <div class="logo-placeholder">ADC</div>
+            <div>
+                <div class="college-name">ASTRA X'26</div>
+                <div class="college-subtitle">Admin Dashboard</div>
+            </div>
+        </a>
+        <div class="admin-actions">
+            <span class="admin-user">Logged in: {{ admin_user }}</span>
+            <a class="admin-link" href="{{ url_for('admin_logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <main class="dashboard section-shell">
+        <div class="dashboard-heading">
+            <div>
+                <p class="eyebrow">AUTHORIZED ADMIN AREA</p>
+                <h1>ASTRA X'26 — Admin Dashboard</h1>
+            </div>
+            <div class="total-badge">Total: {{ registrations|length }}</div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-stack">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <section class="stats-grid">
+            {% for name, description in competitions %}
+            <div class="stat-card">
+                <span class="stat-number">{{ counts[name] }}</span>
+                <span class="stat-name">{{ name }}</span>
+            </div>
+            {% endfor %}
+        </section>
+
+        <section class="glass-card records-card">
+            <div class="table-toolbar">
+                <div>
+                    <h2>All Registrations</h2>
+                    <p>Search by student, SUC Code, course, year, or competition.</p>
+                </div>
+                <input id="adminSearch" type="search" placeholder="Search registrations...">
+            </div>
+
+            <div class="table-wrap">
+                <table id="registrationTable">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Course</th>
+                            <th>Year</th>
+                            <th>SUC Code</th>
+                            <th>Competition</th>
+                            <th>Registered At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in registrations %}
+                        <tr>
+                            <td>{{ row["student_name"] }}</td>
+                            <td>{{ row["course"] }}</td>
+                            <td>{{ row["year"] }}</td>
+                            <td>{{ row["suc_code"] }}</td>
+                            <td><span class="competition-tag">{{ row["competition"] }}</span></td>
+                            <td>{{ row["registered_at"] }}</td>
+                            <td>
+                                <form method="post"
+                                      action="{{ url_for('delete_registration', registration_id=row['id']) }}"
+                                      onsubmit="return confirm('Delete this registration permanently?');">
+                                    <button class="delete-button" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="empty-state">No registrations yet.</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
