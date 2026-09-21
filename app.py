@@ -6,6 +6,7 @@ from datetime import datetime
 import hashlib
 import base64
 import hmac
+import secrets
 
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE = BASE_DIR / "database.db"
@@ -14,12 +15,12 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "CHANGE-THIS-TO-A-LONG-RANDOM-SECRET-BEFORE-PUBLIC-DEPLOYMENT"
 
 COMPETITIONS = [
-    ("BOT-ARENA", "Build / present an AI chatbot solution for a real-world problem."),
-    ("AI CINEVERSE", "AI-supported cinematic creation challenge using creativity, story, and video production."),
-    ("PROMPT X", "Prompt engineering and AI prompting competition."),
-    ("ROBO RUSH", "Robotics-based competition focused on building, control, and problem solving."),
-    ("VISION X", "AI and computer-vision based competition."),
-    ("AI INNOVATE", "AI innovation and solution-based competition."),
+    ("BOT - ARENA", "Build / present an AI chatbot solution for a real-world problem."),
+    ("AI CINEVERSE", "AI-supported short film using creativity, story, and video production."),
+    ("NEURA QUEST", "AI and general knowledge quiz with multiple competitive rounds."),
+    ("VISION-X", "Generate a PPT on a given topic based on AI and robotics."),
+    ("AI CROSSFIRE", "Structured debate on AI-related topics."),
+    ("PROMPT WARS", "Create the most effective prompt for a given task."),
 ]
 
 # Secure PBKDF2 hash. The plaintext admin password is NOT stored in the database.
